@@ -1,8 +1,8 @@
 {
   "name": "node-red-contrib-ipcbox-cm5",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Native GPIO nodes for Waveshare IPCBOX-CM5 using gpiod tools",
-  "main": "none",
+  "main": "nodes/ipcbox-indicator.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,10 +17,21 @@
   "node-red": {
     "nodes": {
       "ipcbox-di": "nodes/ipcbox-di.js",
-      "ipcbox-do": "nodes/ipcbox-do.js"
+      "ipcbox-do": "nodes/ipcbox-do.js",
+      "ipcbox-indicator": "nodes/ipcbox-indicator.js"
     }
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/William1228/node-red-contrib-ipcbox-cm5.git"
+  },
+  "bugs": {
+    "url": "https://github.com/William1228/node-red-contrib-ipcbox-cm5/issues"
+  },
+  "homepage": "https://github.com/William1228/node-red-contrib-ipcbox-cm5#readme",
   "author": "William Lu",
-  "license": "MIT"
+  "license": "MIT",
+  "engines": {
+    "node": ">=12.0.0"
+  }
 }
-

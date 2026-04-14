@@ -4,7 +4,7 @@ Custom Node-RED nodes for **Waveshare IPCBOX-CM5** (Raspberry Pi CM5 based Indus
 These nodes provide high-performance, real-time monitoring and control for Digital Inputs (DI) and Digital Outputs (DO) by leveraging system-level `gpiod` tools.
 
 ## Key Features
-- this noe is well-tested on **Ubuntu 24.04**
+- this node is well-tested on **Ubuntu 24.04.4 TLS**
 - **Real-time DI Monitoring**: Uses hardware interrupts (via `gpiomon`) for instant response.
 - **Initial State Sync**: Automatically detects and outputs current DI status upon Node-RED startup.
 - **Integrated Debounce**: Built-in software filtering to eliminate mechanical switch noise.
@@ -75,6 +75,8 @@ The nodes are pre-configured for the IPCBOX-CM5 industrial board layout:
 | Digital Input 2 | DI2 | 24 | Direct (24V = 1 / High) |
 | Digital Output 1 | DO1 | 27 | Open-Collector |
 | Digital Output 2 | DO2 | 22 | Open-Collector |
+| Indicator 1 | USER1 | 25 | Resistor Pull High |
+| Indicator 2 | USER2 | 26 | Resistor Pull High |
 ---
 
 ## 5. Usage
@@ -85,6 +87,9 @@ IPCBOX DI (Input Node)
 IPCBOX DO (Output Node)
 - Input Payload: Accepts true/false, 1/0, or "ON"/"OFF".
 - Hardware Action: Activating DO will pull the Open-Collector output to Ground (RGND).
+IPCBOX INDICATOR (Output Node)
+- Input Payload: Accepts true/false, 1/0, or "ON"/"OFF".
+- Hardware Action: The outputs use an 3.3V pull-high with a resistor design. Activating the channel will sink PGIO to Ground..
 
 ---
 

@@ -1,0 +1,69 @@
+<script type="text/html" data-template-name="ipcbox-indicator">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-indicator-channel"><i class="fa fa-microchip"></i> Channel</label>
+        <select id="node-input-channel">
+            <option value="25">USER1 (GPIO 25)</option>
+            <option value="26">USER2 (GPIO 26)</option>
+        </select>
+    </div>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('ipcbox-indicator',{
+        category: 'IPCBOX CM5',
+        color: '#a6bbcf',
+        defaults: {
+            name: {value:""},
+            channel: {value:"25"} 
+        },
+        inputs:1,
+        outputs:1,
+        icon: "bridge.png",
+        label: function() {
+            var label = "IPCBOX INDICATOR";
+            if (this.channel === "25") label = "IPCBOX USER1";
+            if (this.channel === "26") label = "IPCBOX USER2";
+            return this.name || label;
+        }
+    });
+</script>
+
+<!-- Help Description -->
+<script type="text/html" data-help-name="ipcbox-indicator">
+    <p>Controls the USER INDICATOR (LED) channels on the Waveshare IPCBOX-CM5 via <code>gpioset</code>.</p>
+
+    <h3>Properties</h3>
+    <dl class="message-properties">
+        <dt>Channel <span class="property-type">select</span></dt>
+        <dd>Choose the physical indicator channel to control (USER1 or USER2).</dd>
+    </dl>
+
+    <h3>Inputs</h3>
+    <dl class="message-properties">
+        <dt>payload <span class="property-type">boolean | number | string</span></dt>
+        <dd>
+            The command to switch the output state:
+            <ul>
+                <li><b>ON:</b> <code>true</code>, <code>1</code>, <code>"1"</code>, or <code>"ON"</code></li>
+                <li><b>OFF:</b> <code>false</code>, <code>0</code>, <code>"0"</code>, or <code>"OFF"</code></li>
+            </ul>
+        </dd>
+    </dl>
+
+    <h3>Outputs</h3>
+    <dl class="message-properties">
+        <dt>payload <span class="property-type">boolean</span></dt>
+        <dd>Returns the actual state sent to the hardware (<code>true</code> for ON, <code>false</code> for OFF).</dd>
+    </dl>
+
+    <h3>Hardware Details</h3>
+    <ul>
+        <li><b>DO1:</b> Wired to GPIO 25.</li>
+        <li><b>DO2:</b> Wired to GPIO 26.</li>
+    </ul>
+    <p><i>Note: The outputs use an 3.3V pull-high with a resistor design. Activating the channel will sink PGIO to Ground.</i></p>
+</script>
