@@ -22,7 +22,7 @@ module.exports = function(RED) {
                 node.status({
                     fill: value ? "green" : "dot", 
                     shape: "dot", 
-                    text: (node.channel === "25" ? "USER1" : "USER2") + ": " + (value ? "ON" : "OFF")
+                    text: (node.channel === "25" ? "USER1" : "USER2") + ": " + (value ? "OFF" : "ON")
                 });
                 // 
                 msg.payload = (value === 1);
