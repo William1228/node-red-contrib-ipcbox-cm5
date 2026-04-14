@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-ipcbox-cm5",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Native GPIO nodes for Waveshare IPCBOX-CM5 using gpiod tools",
   "main": "nodes/ipcbox-indicator.js",
   "scripts": {
@@ -21,9 +21,8 @@
       "ipcbox-indicator": "nodes/ipcbox-indicator.js"
     },
     "examples": {
-        "Basic GPIO Usage": "examples/basic_gpio_demo.json"
+      "Basic GPIO Usage": "examples/basic_gpio_demo.json"
     }
-
   },
   "repository": {
     "type": "git",
