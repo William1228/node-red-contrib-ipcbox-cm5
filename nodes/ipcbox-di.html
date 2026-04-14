@@ -1,0 +1,66 @@
+<script type="text/javascript">
+    RED.nodes.registerType('ipcbox-di',{
+        category: 'IPCBOX CM5',
+        color: '#c7e9c0',
+        defaults: {
+            name: {value:""},
+            channel: {value:"23"},
+            debounce: {value: 50, validate:RED.validators.number()}
+        },
+        inputs:0,
+        outputs:1,
+        icon: "arrow-in.png",
+        label: function() {
+            return this.name || "IPCBOX DI (CH" + (this.channel === "23" ? "1" : "2") + ")";
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="ipcbox-di">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-channel"><i class="fa fa-microchip"></i> Channel</label>
+        <select id="node-input-channel">
+            <option value="23">DI1 (GPIO 23)</option>
+            <option value="24">DI2 (GPIO 24)</option>
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="node-input-debounce"><i class="fa fa-shield"></i> Debounce (ms)</label>
+        <input type="number" id="node-input-debounce" placeholder="50">
+    </div>
+</script>
+
+<!--  Help Description -->
+<script type="text/html" data-help-name="ipcbox-di">
+    <p>Monitoring the Digital Input (DI) channels on the Waveshare IPCBOX-CM5 in real-time.</p>
+
+    <h3>Properties</h3>
+    <dl class="message-properties">
+        <dt>Channel <span class="property-type">select</span></dt>
+        <dd>Choose the physical DI channel to monitor (DI1 or DI2).</dd>
+        <dt>Debounce <span class="property-type">number</span></dt>
+        <dd>The minimum interval (ms) between consecutive signal changes to filter out mechanical noise.</dd>
+    </dl>
+
+    <h3>Outputs</h3>
+    <dl class="message-properties">
+        <dt>payload <span class="property-type">boolean</span></dt>
+        <dd>The state of the input. Returns <code>true</code> when >2V signal is detected (ON), 
+            and <code>false</code> when the circuit is open (OFF).</dd>
+        <dt>topic <span class="property-type">string</span></dt>
+        <dd>The identifier of the triggered channel, e.g., <code>input/DI1</code>.</dd>
+        <dt>timestamp <span class="property-type">number</span></dt>
+        <dd>The epoch time in milliseconds when the event occurred.</dd>
+    </dl>
+
+    <h3>Internal Hardware Logic</h3>
+    <ul>
+        <li><b>DI1 (GPIO 23):</b> Hardware Inverted (24V In = GPIO Low). </li>
+        <li><b>DI2 (GPIO 24):</b> Hardware Direct (24V In = GPIO High). </li>
+    </ul>
+    <p><i>Note: This node automatically handles the logic inversion for DI1 so that >2V always equals <b>true</b>.</i></p>
+</script>

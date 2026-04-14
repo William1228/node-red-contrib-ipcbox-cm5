@@ -1,0 +1,69 @@
+<script type="text/html" data-template-name="ipcbox-do">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-channel"><i class="fa fa-microchip"></i> Channel</label>
+        <select id="node-input-channel">
+            <option value="27">DO1 (GPIO 27)</option>
+            <option value="22">DO2 (GPIO 22)</option>
+        </select>
+    </div>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('ipcbox-do',{
+        category: 'IPCBOX CM5',
+        color: '#a6bbcf',
+        defaults: {
+            name: {value:""},
+            channel: {value:"27"} 
+        },
+        inputs:1,
+        outputs:1,
+        icon: "bridge.png",
+        label: function() {
+            var label = "IPCBOX DO";
+            if (this.channel === "27") label = "IPCBOX DO1";
+            if (this.channel === "22") label = "IPCBOX DO2";
+            return this.name || label;
+        }
+    });
+</script>
+
+<!-- Help Description -->
+<script type="text/html" data-help-name="ipcbox-do">
+    <p>Controls the Digital Output (DO) channels on the Waveshare IPCBOX-CM5 via <code>gpioset</code>.</p>
+
+    <h3>Properties</h3>
+    <dl class="message-properties">
+        <dt>Channel <span class="property-type">select</span></dt>
+        <dd>Choose the physical DO channel to control (DO1 or DO2).</dd>
+    </dl>
+
+    <h3>Inputs</h3>
+    <dl class="message-properties">
+        <dt>payload <span class="property-type">boolean | number | string</span></dt>
+        <dd>
+            The command to switch the output state:
+            <ul>
+                <li><b>ON:</b> <code>true</code>, <code>1</code>, <code>"1"</code>, or <code>"ON"</code></li>
+                <li><b>OFF:</b> <code>false</code>, <code>0</code>, <code>"0"</code>, or <code>"OFF"</code></li>
+            </ul>
+        </dd>
+    </dl>
+
+    <h3>Outputs</h3>
+    <dl class="message-properties">
+        <dt>payload <span class="property-type">boolean</span></dt>
+        <dd>Returns the actual state sent to the hardware (<code>true</code> for ON, <code>false</code> for OFF).</dd>
+    </dl>
+
+    <h3>Hardware Details</h3>
+    <ul>
+        <li><b>DO1:</b> Wired to GPIO 27.</li>
+        <li><b>DO2:</b> Wired to GPIO 22.</li>
+    </ul>
+    <p><i>Note: The outputs use an Open-Collector design. Activating the channel will pull the output to Ground (RGND).</i></p>
+</script>
